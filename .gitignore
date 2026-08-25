@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.env
+**/.env
+!**/.env.example
+__pycache__/
+.pytest_cache/
+*.pyc
+server/uploads/*
+!server/uploads/.gitkeep
+models/
+*.pth
+*.pt
+*.ckpt
+.DS_Store

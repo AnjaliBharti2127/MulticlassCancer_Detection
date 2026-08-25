@@ -1,0 +1,21 @@
+{
+  "configured": true,
+  "model_name": "Patho Stage-2 Hybrid Classifier",
+  "model_version": "stage2-final",
+  "preprocessing_version": "imagenet-224-validation",
+  "input_size": 224,
+  "uncertainty_threshold": 0.7,
+  "normalization_mean": [0.485, 0.456, 0.406],
+  "normalization_std": [0.229, 0.224, 0.225],
+  "class_names": [
+    "breast_cancer",
+    "breast_normal",
+    "colon_cancer",
+    "colon_normal",
+    "lung_normal",
+    "lung_type1_cancer",
+    "lung_type2_cancer",
+    "oral_cancer",
+    "oral_normal"
+  ]
+}
