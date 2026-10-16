@@ -49,10 +49,10 @@ export const predictSlideImage = asyncHandler(async (req: Request, res: Response
       caseDoc.latestPrediction = saved._id;
       caseDoc.predictedClass = p.predictedClass;
       caseDoc.confidence = p.confidence;
-      caseDoc.topPredictions = [...p.probabilities]
+      caseDoc.set("topPredictions ",[...p.probabilities]
         .sort((a, b) => b.probability - a.probability)
         .slice(0, 4)
-        .map((item) => ({ className: item.className, confidence: item.probability }));
+        .map((item) => ({ className: item.className, confidence: item.probability })));
       caseDoc.status = p.uncertain ? "needs_review" : "completed";
       await caseDoc.save();
     }
