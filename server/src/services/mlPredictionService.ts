@@ -138,7 +138,7 @@ function parseGradioResult(text: string): unknown {
       .map((line) => line.slice(5).trim())
       .join("\n");
 
-    if (event === "error") {
+    if (event === "error") { console.error("GRADIO_ERROR_DETAILS:", data);
       throw new ApiError(
         502,
         "ML_SERVICE_ERROR",
