@@ -201,7 +201,7 @@ export async function predictImageWithMl(
   input: PredictImageInput
 ): Promise<MlPredictionResponse> {
   const base = env.mlServiceUrl.replace(/\/+$/, "");
-  const started = Date.now();
+  const started = Date.now(); const hfClient = axios.create({ headers: process.env.HF_TOKEN ? { Authorization: "Bearer " + process.env.HF_TOKEN.trim() } : {} });
   const timeout = Math.max(env.mlServiceTimeoutMs, 180000);
 
   try {
@@ -213,7 +213,7 @@ export async function predictImageWithMl(
       contentType: input.mimeType,
     });
 
-    const upload = await axios.post<unknown>(
+    const upload = await hfClient.post<unknown>(
       `${base}/gradio_api/upload`,
       form,
       {
@@ -234,7 +234,7 @@ export async function predictImageWithMl(
     const filePath = upload.data[0];
 
     // Start the queued prediction.
-    const job = await axios.post<{ event_id?: string }>(
+    const job = await hfClient.post<{ event_id?: string }>(
       `${base}/gradio_api/call/predict`,
       {
         data: [
@@ -262,7 +262,7 @@ export async function predictImageWithMl(
     const eventId = encodeURIComponent(job.data.event_id);
 
     // Wait for the prediction result.
-    const result = await axios.get<string>(
+    const result = await hfClient.get<string>(
       `${base}/gradio_api/call/predict/${eventId}`,
       {
         timeout,
